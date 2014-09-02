@@ -1,4 +1,5 @@
 <?php
+ini_set('display_errors', 'On');
 $dbname = 'db/.htdb.db';
 $admin_hash = 'd2641888ed6426afd3d3649066cf3614ec2eb63d3ec90ba2e3a54ba2dffa61ca';
 $admin_username = 'admin';
