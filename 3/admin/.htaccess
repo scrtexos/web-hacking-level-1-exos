@@ -1,4 +1,4 @@
-AuthUserFile /var/www/localhost/exos/3/admin/.htpasswd
+AuthUserFile /app/3/admin/.htpasswd
 AuthName "Restriced access" 
 AuthType Basic 
 Require valid-user 
