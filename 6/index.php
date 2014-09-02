@@ -56,7 +56,7 @@ if(isset($_POST['ip'])){
       </div>
       <?php
         if(isset($_POST['ip'])){
-         echo '<textarea disabled="disabled" class="form-control" rows="9">'.htmlentites($result).'</textarea>';
+         echo '<textarea disabled="disabled" class="form-control" rows="9">'.htmlentities($result).'</textarea>';
         }
       ?>
     </div><!-- /.container -->

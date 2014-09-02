@@ -27,7 +27,7 @@ create_user_if_not_exist($admin_username, $admin_password);
 
 
 if(isset($_POST['message'])){
-  $find = preg_match("#^.*(http://[^ ]+).*$#",$_POST['message'], $message);
+  $find = preg_match("#(http://[^ ]+)#",$_POST['message'], $message);
   if($find == 1){
     $cmd = 'phantomjs bot.js \''.escapeshellcmd($message[1]).'\'';
     shell_exec($cmd);

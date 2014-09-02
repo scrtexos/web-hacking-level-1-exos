@@ -98,7 +98,7 @@ if(isset($_POST['username']) && isset($_POST['password1']) && isset($_POST['pass
     <div class="container">
 
       <div class="starter-template">
-        <h1>Exercice 9 - CSRF</h1>
+        <h1>Exercice 4 - Direct object access</h1>
         <p class="lead">Login with admin account.</p>
         <?php
           if(isset($_SESSION['logged'])){
