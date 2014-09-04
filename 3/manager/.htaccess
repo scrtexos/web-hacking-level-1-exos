@@ -1,4 +1,4 @@
-AuthUserFile /app/3/admin/.htpasswd
+AuthUserFile /app/3/manager/.htpasswd
 AuthName "Restriced access" 
 AuthType Basic 
 Require valid-user 
