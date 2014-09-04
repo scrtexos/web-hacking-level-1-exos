@@ -47,7 +47,7 @@ if(isset($_POST['ip'])){
         <p class="lead">Get a shell on the vulnerable website.</p>
         <form id="my_form" method="POST" action="">
           <div class="form-group">
-            <input type="text" class="form-control" name="ip" id="ip" placeholder="IP address">
+            <b>Ping</b> : <input type="text" class="form-control" name="ip" id="ip" placeholder="IP address">
           </div>
           <div class="form-group">
             <button type="submit" class="btn btn-default">Submit</button>

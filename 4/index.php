@@ -1,5 +1,11 @@
 <?php
+session_name(session_name().'_exo4');
 session_start();
+if(isset($_GET['logout'])){
+  unset($_SESSION['logged']);
+  session_destroy();
+  header('Location: ./');
+}
 $dbname = 'db/.htdb.db';
 $admin_password = 'p8RnQlVccP3nl5SJN96SKaHZlM441jEZ';
 $admin_username = 'admin';
@@ -120,6 +126,7 @@ if(isset($_POST['username']) && isset($_POST['password1']) && isset($_POST['pass
           </div>
           <div class="form-group">
             <button type="submit" class="btn btn-default">Submit</button>
+	          <button type="button" class="btn btn-default" onclick="javascript:document.location='./?logout=1'">Logout</button>
           </div>
         </form>
         <?php

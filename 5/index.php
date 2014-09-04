@@ -2,22 +2,23 @@
 date_default_timezone_set('UTC');
 $dbname = 'db/.htdb.db';
 
-$tbl_comments = "CREATE TABLE IF NOT EXISTS comments (id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE NOT NULL, date TEXT, comment TEXT);";
+$tbl_comments = "CREATE TABLE IF NOT EXISTS comments (id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE NOT NULL, date TEXT, comment TEXT, username TEXT);";
 
 $db = new SQLite3($dbname);
 $db->exec($tbl_comments);
 $db->close();
 
-if(isset($_POST['message'])){
+if(isset($_POST['message']) && isset($_POST['username'])){
   $db = new SQLite3($dbname);
   $safe_message = $db->escapeString($_POST['message']);
-  $query = "INSERT INTO comments (date, comment) VALUES ('".date("F j, Y, g:i a")."', '".$safe_message."')";
+  $safe_username = $db->escapeString($_POST['username']);
+  $query = "INSERT INTO comments (date, comment, username) VALUES ('".date("d/m/Y, H:i")."', '".$safe_message."', '".$safe_username."')";
   $db->exec($query);
   $db->close();
 }
 
 $db = new SQLite3($dbname);
-$query = "SELECT date, comment from comments";
+$query = "SELECT date, comment, username from comments";
 $sqlResult = $db->query($query);
 $result = array();
 $i = 0;
@@ -73,6 +74,10 @@ $db->close();
         <p class="lead">Force visitors to post a malicious comment.</p>
         <form id="my_form" method="POST" action="">
           <div class="form-group">
+            <label for="username" class="col-sm-2 control-label">Username :</label>
+            <input name="username" id="username" class="form-control">
+          </div>
+          <div class="form-group">
             <label for="message" class="col-sm-2 control-label">Message :</label>
             <textarea name="message" id="message" class="form-control" rows="3"></textarea>
           </div>
@@ -88,7 +93,7 @@ $db->close();
           for($i=0;$i<count($result);$i++){
         ?>
           <div class="col-lg-4">
-            <h3><?php echo $result[$i]['date']; ?></h3>
+            <h3><?php echo '<b>'.htmlentities($result[$i]['username']).'</b> : '.$result[$i]['date']; ?></h3>
             <p><?php echo $result[$i]['comment']; ?></p>
           </div>
         <?php

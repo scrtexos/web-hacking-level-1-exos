@@ -1,5 +1,11 @@
 <?php
+session_name(session_name().'_exo9');
 session_start();
+if(isset($_GET['logout'])){
+  unset($_SESSION['logged']);
+  session_destroy();
+  header('Location: ./');
+}
 $dbname = 'db/.htdb.db';
 $admin_password = 'p8RnQlVccP3nl5SJN96SKaHZlM441jEZ';
 $admin_username = 'admin';
@@ -116,6 +122,7 @@ if(isset($_SESSION['logged']) && isset($_POST['password1']) && isset($_POST['pas
       <div class="starter-template">
         <h1>Exercice 9 - CSRF</h1>
         <p class="lead">Login with admin account.</p>
+        <?php if(isset($_POST['message'])){ echo '<p>Thank you, message sent to the administrator !</p>'; } ?>
         <?php
           if(isset($_SESSION['logged'])){
         ?>
@@ -135,6 +142,7 @@ if(isset($_SESSION['logged']) && isset($_POST['password1']) && isset($_POST['pas
           </div>
           <div class="form-group">
             <button type="submit" class="btn btn-default">Submit</button>
+            <button type="button" class="btn btn-default" onclick="javascript:document.location='./?logout=1'">Logout</button>
           </div>
         </form>
         <?php

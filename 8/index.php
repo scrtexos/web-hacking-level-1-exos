@@ -94,7 +94,7 @@ if(isset($_COOKIE['my_session'])){
         <?php
           if($logged==1){
         ?>
-        <p>Hello <?php echo htmlentities($username); ?> you are logged !</p>
+        <p>Hello <?php echo htmlentities($username); ?> you are connected !</p>
         <?php
           }
           else{

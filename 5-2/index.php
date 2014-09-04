@@ -49,6 +49,7 @@ if(isset($_POST['message'])){
       <div class="starter-template">
         <h1>Exercice 5 bis - <?php echo $_GET['title']; ?></h1>
         <p class="lead">Steal admin cookie.</p>
+        <?php if(isset($_POST['message'])){ echo '<p>Thank you, message sent to the administrator !</p>'; } ?>
         <form id="my_form" method="POST" action="">
           <div class="form-group">
             <label for="message" class="col-sm-2 control-label">Message :</label>
