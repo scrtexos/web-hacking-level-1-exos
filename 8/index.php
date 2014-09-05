@@ -1,4 +1,8 @@
 <?php
+if(isset($_GET['logout'])){
+  setcookie('my_session','');
+  header('Location: ./');
+}
 $dbname = 'db/.htdb.db';
 $admin_password = 'p8RnQlVccP3nl5SJN96SKaHZlM441jEZ';
 $admin_username = 'admin';
@@ -95,6 +99,7 @@ if(isset($_COOKIE['my_session'])){
           if($logged==1){
         ?>
         <p>Hello <?php echo htmlentities($username); ?> you are connected !</p>
+        <button type="button" class="btn btn-default" onclick="javascript:document.location='./?logout=1'">Logout</button>
         <?php
           }
           else{
