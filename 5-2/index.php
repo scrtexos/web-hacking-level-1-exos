@@ -1,4 +1,7 @@
 <?php
+if(!isset($_GET['title'])){
+  header('Location: ./?title=XSS%20bis');
+}
 if(isset($_POST['message'])){
   $find = preg_match("#(http://[^ ]+)#",$_POST['message'], $message);
   if($find == 1){
