@@ -93,7 +93,7 @@ if(isset($_COOKIE['my_session'])){
     <div class="container">
 
       <div class="starter-template">
-        <h1>Exercice 8 - Session fixation</h1>
+        <h1>Exercice 8 - Session management</h1>
         <p class="lead">Login with admin account.</p>
         <?php
           if($logged==1){
