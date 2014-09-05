@@ -13,7 +13,7 @@ address = system.args[1];
 phantom.addCookie({
   'name': 'phantomjs-cheat',
   'value': '60afe57f665abca1a54cc83955cf3adf0a7db9e5abc8334bf77d4cc1a6fb599a',
-  'domain': '127.0.0.1'
+  'domain': system.args[2]
 });
 
 page.open(address, function(status) {
