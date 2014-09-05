@@ -2,7 +2,7 @@
 if(isset($_POST['message'])){
   $find = preg_match("#(http://[^ ]+)#",$_POST['message'], $message);
   if($find == 1){
-    $cmd = 'phantomjs bot.js \''.str_replace('\'','',$message[1]).'\'';
+    $cmd = 'phantomjs bot.js \''.str_replace('\'','',$message[1]).'\' '.$_SERVER['HTTP_HOST'];
     shell_exec($cmd);
   }
 }

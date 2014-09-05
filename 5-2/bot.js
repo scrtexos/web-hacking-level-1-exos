@@ -12,7 +12,7 @@ address = system.args[1];
 phantom.addCookie({
   'name': 'Admin-cookie',
   'value': 'Congratz ! You steal this cookie.',
-  'domain': '127.0.0.1'
+  'domain': system.args[2]
 });
 
 
