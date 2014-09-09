@@ -5,7 +5,7 @@ if(!isset($_GET['title'])){
 if(isset($_POST['message'])){
   $find = preg_match("#(http://[^ ]+)#",$_POST['message'], $message);
   if($find == 1){
-    $cmd = 'phantomjs bot.js \''.str_replace('\'','',$message[1]).'\' '.$_SERVER['SERVER_NAME'];
+    $cmd = 'phantomjs bot.js \''.str_replace('\'','',$message[1]).'\' '.$_SERVER['SERVER_ADDR'];
     shell_exec($cmd);
   }
 }
