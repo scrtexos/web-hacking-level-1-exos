@@ -1,5 +1,5 @@
 <?php
-session_name(session_name().'_exo9');
+session_name(session_name().'_exo4_2');
 session_start();
 if(isset($_GET['logout'])){
   unset($_SESSION['logged']);
@@ -18,7 +18,7 @@ function create_user_if_not_exist($username, $password){
   $query = "SELECT id FROM users WHERE username='".$safe_username."'";
   $result = (int)$db->querySingle($query);
   if($result == 0){
-    $query = "INSERT INTO users (username, password) VALUES ('".$username."', '".$password_hash."')";
+    $query = "INSERT INTO users (username, password) VALUES ('".$safe_username."', '".$password_hash."')";
     $db->exec($query);
   }
   $db->close();
@@ -30,23 +30,6 @@ $db = new SQLite3($dbname);
 $db->exec($tbl_users);
 $db->close();
 create_user_if_not_exist($admin_username, $admin_password);
-
-
-if(isset($_POST['message'])){
-  $find = preg_match("#(http://[^ ]+)#",$_POST['message'], $message);
-  if($find == 1){
-    $cmd = 'phantomjs bot.js \''.escapeshellcmd($message[1]).'\' '.$_SERVER['SERVER_ADDR'];
-    shell_exec($cmd);
-  }
-}
-
-if(isset($_COOKIE['phantomjs-cheat']) && $_COOKIE['phantomjs-cheat'] === '60afe57f665abca1a54cc83955cf3adf0a7db9e5abc8334bf77d4cc1a6fb599a'){
-  $db = new SQLite3($dbname);
-  $safe_username = $db->escapeString($admin_username);
-  $query = "SELECT id FROM users WHERE username='".$safe_username."'";
-  $_SESSION['logged'] = (int)$db->querySingle($query);
-  $db->close();
-}
 
 if(isset($_POST['username']) && isset($_POST['password'])){
   create_user_if_not_exist($_POST['username'], $_POST['password']);
@@ -69,11 +52,12 @@ if(isset($_SESSION['logged'])){
   $db->close();
 }
 
-if(isset($_SESSION['logged']) && isset($_POST['password1']) && isset($_POST['password2']) && $_POST['password1']===$_POST['password2']){
+if(isset($_POST['username']) && isset($_POST['password1']) && isset($_POST['password2']) && $_POST['password1']===$_POST['password2']){
   $message=" your password has been changed !";
   $db = new SQLite3($dbname);
+  $safe_username = $db->escapeString($_POST['username']);
   $password_hash = hash("sha256", $_POST['password1']);
-  $query = "UPDATE users SET password='".$password_hash."' WHERE id=".$_SESSION['logged'];
+  $query = "UPDATE users SET password='".$password_hash."' WHERE username='".$safe_username."'";
   $db->exec($query);
   $db->close();
 }
@@ -120,15 +104,15 @@ if(isset($_SESSION['logged']) && isset($_POST['password1']) && isset($_POST['pas
     <div class="container">
 
       <div class="starter-template">
-        <h1>Exercice 9 - CSRF</h1>
+        <h1>Exercice 4 bis - Direct object access</h1>
         <p class="lead">Login with admin account.</p>
-        <?php if(isset($_POST['message'])){ echo '<p>Thank you, message sent to the administrator !</p>'; } ?>
         <?php
           if(isset($_SESSION['logged'])){
         ?>
         <p>Hello <?php echo htmlentities($username).$message; ?></p>
-        <form id="my_form" method="GET" action="">
+        <form id="my_form" method="POST" action="">
           <div class="form-group">
+            <input type="hidden" class="form-control" id="username" name="username" value="<?php echo htmlentities($username); ?>">
             <label for="password1" class="col-sm-2 control-label">Password</label>
             <div class="col-sm-10">
               <input type="password" class="form-control" id="password1" name="password1" placeholder="Password">
@@ -169,15 +153,6 @@ if(isset($_SESSION['logged']) && isset($_POST['password1']) && isset($_POST['pas
         <?php
           }
         ?>
-        <form id="my_form" method="POST" action="">
-          <div class="form-group">
-            <label for="message" class="col-sm-2 control-label">Message :</label>
-            <textarea name="message" id="message" class="form-control" rows="3"></textarea>
-          </div>
-          <div class="form-group">
-            <button type="submit" class="btn btn-default">Submit</button>
-          </div>
-        </form>
       </div>
     </div><!-- /.container -->
 

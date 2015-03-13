@@ -3,9 +3,11 @@ if(!isset($_GET['title'])){
   header('Location: ./?title=XSS%20bis');
 }
 if(isset($_POST['message'])){
+  $message = explode('title=', $_POST['message'], 2);
+  $msg = $message[0].'title='.urlencode($message[1]);
   $find = preg_match("#(http://[^ ]+)#",$_POST['message'], $message);
   if($find == 1){
-    $cmd = 'phantomjs bot.js \''.str_replace('\'','',$message[1]).'\' '.$_SERVER['SERVER_ADDR'];
+    $cmd = 'phantomjs bot.js \''.str_replace('\'','',$msg).'\' '.$_SERVER['SERVER_ADDR'];
     shell_exec($cmd);
   }
 }

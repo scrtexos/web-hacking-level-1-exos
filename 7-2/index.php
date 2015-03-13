@@ -1,4 +1,5 @@
 <?php
+ini_set('display_errors', 'On');
 $dbname = 'db/.htdb.db';
 $article1_title = 'Barbados Blackbelly sheep';
 $article1_text = 'The Barbados Blackbelly sheep is a breed of domestic sheep that was developed in the Caribbean. Although it is likely the Barbados Blackbelly has African ancestry, there seems to be clear evidence that the breed, as seen today, was developed by the people on the island from sheep brought by ships fairly early in the period after Europeans first arrived. This breed is raised primarily for meat.';
@@ -59,9 +60,11 @@ $db->close();
 
 if(isset($_GET['id'])){
   $db = new SQLite3($dbname);
-  $safe_id = $db->escapeString($_GET['id']);
-  $query = "SELECT title, text FROM articles WHERE id=".$safe_id;
-  $article = @$db->querySingle($query, true);
+  $query = "SELECT title, text FROM articles WHERE id=".$_GET['id'];
+  $article = $db->querySingle($query, true);
+  if($article==false){
+    echo "SELECT title, text FROM articles WHERE id=<b>".$_GET['id']."</b>";
+  }
   $db->close();
 }
 

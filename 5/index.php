@@ -71,7 +71,7 @@ $db->close();
 
       <div class="starter-template">
         <h1>Exercice 5 - XSS</h1>
-        <p class="lead">Force visitors to post a malicious comment.</p>
+        <p class="lead">Deface the website with your beautiful banner.</p>
         <form id="my_form" method="POST" action="">
           <div class="form-group">
             <label for="username" class="col-sm-2 control-label">Username :</label>

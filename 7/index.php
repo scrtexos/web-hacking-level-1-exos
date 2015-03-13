@@ -23,7 +23,10 @@ if(isset($_POST['username']) && isset($_POST['password'])){
   $db = new SQLite3($dbname);
   $hash = hash("sha256", $_POST['password']);
   $query = "SELECT id FROM users WHERE username='".$_POST['username']."' and password='".$hash."'";
-  $result = (int)$db->querySingle($query);
+  $result = $db->querySingle($query);
+  if($result==false){
+    echo "SELECT id FROM users WHERE username='<b>".$_POST['username']."</b>' and password='".$hash."'";
+  }
   if($result != 0){
     $logged=1;
   }
