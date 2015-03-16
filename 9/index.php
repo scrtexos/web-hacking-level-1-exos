@@ -69,10 +69,10 @@ if(isset($_SESSION['logged'])){
   $db->close();
 }
 
-if(isset($_SESSION['logged']) && isset($_POST['password1']) && isset($_POST['password2']) && $_POST['password1']===$_POST['password2']){
+if(isset($_SESSION['logged']) && isset($_GET['password1']) && isset($_GET['password2']) && $_GET['password1']===$_GET['password2']){
   $message=" your password has been changed !";
   $db = new SQLite3($dbname);
-  $password_hash = hash("sha256", $_POST['password1']);
+  $password_hash = hash("sha256", $_GET['password1']);
   $query = "UPDATE users SET password='".$password_hash."' WHERE id=".$_SESSION['logged'];
   $db->exec($query);
   $db->close();
